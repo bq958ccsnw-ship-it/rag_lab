@@ -11,12 +11,10 @@ RESULTS_PATH = ROOT / "results" / "baseline.json"
 TABLE_PATH = ROOT / "results" / "viktoria_metrics_by_k.csv"
 CHART_PATH = ROOT / "results" / "viktoria_metrics_by_k.png"
 
-# вопросы для ручной проверки: выбраны специально так, чтобы показать
-# три разных случая позиции первого релевантного документа в выдаче
 MANUAL_CHECK_IDS = {
-    "q001": 1,  # релевантный документ на 1-м месте — идеальный случай
-    "q023": 5,  # найден только на 5-м месте — Precision/Recall@k резко меняются между k=3 и k=5
-    "q012": 7,  # найден на 7-м месте — не будет найден вообще при k=1,3,5, только при k=10
+    "q001": 1,
+    "q023": 5, 
+    "q012": 7, 
 }
 
 
@@ -85,7 +83,6 @@ def manual_check(report: dict) -> None:
         row = rows_by_id[qid]
         relevant = set(row["relevant_doc_ids"])
 
-        # список ранжированных документов без повторов (как делает _deduplicate в evaluation.py)
         ranked_docs: list[str] = []
         seen: set[str] = set()
         for item in row["retrieved"]:
@@ -112,7 +109,7 @@ def manual_check(report: dict) -> None:
             recall = relevant_retrieved / len(relevant)
             hit = 1.0 if first_rank is not None and first_rank <= k else 0.0
             rr = 0.0 if first_rank is None or first_rank > k else 1.0 / first_rank
-            # значение из evaluation.py для этого k и вопроса (топ-k считается независимо для каждого k)
+     
             expected = row["metrics"][str(k)]
             print(
                 f"    k={k:>2}: ручной расчёт  P={precision:.4f} R={recall:.4f} "

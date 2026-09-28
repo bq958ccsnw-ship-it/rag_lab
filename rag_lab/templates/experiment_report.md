@@ -34,7 +34,6 @@
 ## Команды воспроизведения
 
 ```powershell
-Set-Location rag_lab
 python run.py evaluate --k 1 3 5 10 --output results\viktoria_k.json
 python -m pip install matplotlib
 python analysis_viktoria.py | Out-File -Encoding utf8 results\viktoria_manual_check.txt

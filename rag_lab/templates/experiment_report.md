@@ -36,7 +36,7 @@
 ```powershell
 python run.py evaluate --k 1 3 5 10 --output results\viktoria_k.json
 python -m pip install matplotlib
-python analysis_viktoria.py | Out-File -Encoding utf8 results\viktoria_manual_check.txt
+python analysis_viktoria.py
 ```
 
 Скрипт `analysis_viktoria.py` создаёт `results\viktoria_metrics_by_k.csv` и `results\viktoria_metrics_by_k.png` и выполняет ручную проверку с автоматической сверкой.
